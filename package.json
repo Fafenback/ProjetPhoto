@@ -1,0 +1,40 @@
+{
+  "name": "projet_photo",
+  "version": "1.0.0",
+  "description": "photo",
+  "main": "src/index.js",
+  "devDependencies": {
+    "@babel/core": "7.3.3",
+    "@babel/node": "7.2.2",
+    "@babel/preset-env": "7.3.1",
+    "@babel/preset-react": "7.0.0",
+    "aws-sdk": "2.408.0",
+    "babel-loader": "8.0.5",
+    "babel-plugin-styled-components": "1.10.0",
+    "eslint": "5.14.1",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.16.0",
+    "eslint-plugin-react": "7.12.4",
+    "nodemon": "1.18.10",
+    "webpack": "4.29.5",
+    "webpack-dev-middleware": "3.6.0",
+    "webpack-dev-server": "3.2.1",
+    "webpack-hot-middleware": "2.24.3",
+    "webpack-node-externals": "1.7.2"
+  },
+  "dependencies": {
+    "body-parser": "1.18.3",
+    "cors": "2.8.5",
+    "express": "4.16.4",
+    "react": "16.8.2",
+    "react-dom": "16.8.2",
+    "react-hot-loader": "4.7.1",
+    "styled-components": "4.1.3"
+  },
+  "scripts": {
+    "start": "cd server && NODE_ENV=development nodemon server.js",
+    "lint": "eslint . --fix --cache"
+  },
+  "author": "fafenback & fukoyamashisu",
+  "license": "MIT"
+}

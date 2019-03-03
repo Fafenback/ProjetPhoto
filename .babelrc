@@ -1,0 +1,34 @@
+{
+    "env": {
+        "production": {
+            "presets": [
+                "@babel/preset-env",
+                "@babel/preset-react",
+            ],
+            "plugins":[
+                "react-hot-loader/babel",
+                "babel-plugin-styled-components"
+            ]
+        },
+        "staging": {
+            "presets": [
+                "@babel/preset-env",
+                ["@babel/preset-react", { "development": true }]
+            ],
+            "plugins":[
+                "react-hot-loader/babel",
+                "babel-plugin-styled-components"
+            ]
+        },
+        "development": {
+            "presets": [
+                "@babel/preset-env",
+                ["@babel/preset-react", { "development": true }]
+            ],
+            "plugins":[
+                "react-hot-loader/babel",
+                "babel-plugin-styled-components"
+            ]
+        }
+    }
+}
