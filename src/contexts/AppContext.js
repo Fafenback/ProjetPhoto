@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const AppContext = createContext();
 
@@ -29,7 +29,7 @@ const AppProvider = (props) => {
 const AppConsumer = AppContext.Consumer;
 
 AppProvider.propTypes = {
-  children: propTypes.object.isRequired,
+  children: PropTypes.object.isRequired,
 };
 
 export { AppContext, AppProvider, AppConsumer };
