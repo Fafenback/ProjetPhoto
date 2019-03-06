@@ -1,15 +1,24 @@
 import React from 'react';
 import News from './containers/News';
 import Galery from './containers/Galery';
+import Login from './containers/Login';
+import Fade from './styled/Fade';
 
 const routes = [
   {
     path: '/news',
-    render: (props) => <News {...props} />,
+    render: (props) => <Fade time={'1s'}><News {...props} /></Fade>,
+    exact: true,
+  },
+  {
+    login: '/login',
+    render: (props) => <Fade time={'1s'}><Login {...props} /></Fade>,
+    exact: true,
   },
   {
     path: '/galery',
-    render: (props) => <Galery {...props} />,
+    render: (props) => <Fade time={'1s'}><Galery {...props} /></Fade>,
+    exact: true,
   },
 ];
 

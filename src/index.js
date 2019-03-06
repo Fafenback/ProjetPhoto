@@ -6,6 +6,7 @@ import { AppContainer } from 'react-hot-loader';
 import App from './containers/App';
 import { AppProvider } from './contexts/AppContext';
 
+
 const render = (Component) => {
   ReactDOM.render(
 

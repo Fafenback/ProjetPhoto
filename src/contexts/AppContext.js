@@ -11,12 +11,12 @@ const initialState = {
 const reducer = (state, action) => {
   const { name } = action.payload;
   switch (action.type) {
-  case 'RESET_APP':
-    return initialState;
-  case 'CHANGE_NAME':
-    return { ...state, name };
-  default:
-    return initialState;
+    case 'RESET_APP':
+      return initialState;
+    case 'CHANGE_NAME':
+      return { ...state, name };
+    default:
+      return initialState;
   }
 };
 
