@@ -16,16 +16,17 @@ const App = (props) => {
   const { state, dispatch } = useContext(AppContext);
   const changeName = () => dispatch({ type: 'CHANGE_NAME', payload: { name: 'Sylvain' } });
   return (
-    <Container style={{ height: '100%' }}>
+    <React.Fragment>
       <Header />
-      <Switch>
-        {routes.map((route) => {
-          const key = uniqueId('container_');
-          return <Route key={key} {...route} />;
-        })}
-      </Switch>
-
-    </Container>
+      <Container style={{ height: '100%' }}>
+        <Switch>
+          {routes.map((route) => {
+            const key = uniqueId('container_');
+            return <Route key={key} {...route} />;
+          })}
+        </Switch>
+      </Container>
+    </React.Fragment>
   );
 };
 

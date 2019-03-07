@@ -5,14 +5,14 @@ import { ThemeProvider } from 'styled-components';
 import { AppContainer } from 'react-hot-loader';
 import App from './containers/App';
 import { AppProvider } from './contexts/AppContext';
-
+import { theme } from './styled/theme';
 
 const render = (Component) => {
   ReactDOM.render(
 
     <AppContainer>
       <AppProvider>
-        <ThemeProvider theme={{}}>
+        <ThemeProvider theme={theme}>
           <BrowserRouter>
             <App />
           </BrowserRouter>
