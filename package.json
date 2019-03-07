@@ -28,6 +28,7 @@
     "dynalite": "2.2.0",
     "dynamoose": "1.6.5",
     "express": "4.16.4",
+    "file-loader": "3.0.1",
     "lodash": "4.17.11",
     "react-router-dom": "4.3.1",
     "multer": "1.4.1",

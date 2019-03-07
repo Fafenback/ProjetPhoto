@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { Container } from 'semantic-ui-react';
 import routes from '../routes';
 import { AppContext } from '../contexts/AppContext';
+import Header from '../components/Header';
 
 const App = (props) => {
   const { history } = props;
@@ -16,6 +17,7 @@ const App = (props) => {
   const changeName = () => dispatch({ type: 'CHANGE_NAME', payload: { name: 'Sylvain' } });
   return (
     <Container style={{ height: '100%' }}>
+      <Header />
       <Switch>
         {routes.map((route) => {
           const key = uniqueId('container_');
