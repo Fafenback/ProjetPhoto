@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback } from 'react';
 import { Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import Route from 'react-router-dom/Route';
@@ -8,24 +8,43 @@ import PropTypes from 'prop-types';
 
 import { Container } from 'semantic-ui-react';
 import routes from '../routes';
-import { AppContext } from '../contexts/AppContext';
 import Header from '../components/Header';
 
+
+const StyledContainer = styled(Container)`
+@media only screen and (max-width: 767px) {
+  &&{
+  margin: 0px !important;
+  overflow: hidden;
+  height: 100%;
+  background:linear-gradient(to right bottom, ${(props) => props.theme.primary}, ${(props) => props.theme.secondary} 150%);
+  }
+}
+  &{
+  margin: 0px !important;
+  overflow: hidden;
+  height: 100%;
+  background:linear-gradient(to left top, ${(props) => props.theme.primary}, ${(props) => props.theme.secondary} 150%);
+  }
+`;
 const App = (props) => {
-  const { history } = props;
-  const { state, dispatch } = useContext(AppContext);
-  const changeName = () => dispatch({ type: 'CHANGE_NAME', payload: { name: 'Sylvain' } });
+  // const { location: { pathname } } = props;
+
+  // const isLogin = useCallback(() => {
+  //   pathname === '/' && 'true';
+  // }, [pathname]);
+
   return (
     <React.Fragment>
       <Header />
-      <Container style={{ height: '100%' }}>
+      <StyledContainer>
         <Switch>
           {routes.map((route) => {
             const key = uniqueId('container_');
             return <Route key={key} {...route} />;
           })}
         </Switch>
-      </Container>
+      </StyledContainer>
     </React.Fragment>
   );
 };

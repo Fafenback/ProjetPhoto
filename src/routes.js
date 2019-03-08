@@ -11,7 +11,7 @@ const routes = [
     exact: true,
   },
   {
-    login: '/login',
+    path: '/',
     render: (props) => <Fade time={'1s'}><Login {...props} /></Fade>,
     exact: true,
   },
