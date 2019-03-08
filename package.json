@@ -9,12 +9,16 @@
     "@babel/preset-env": "7.3.1",
     "@babel/preset-react": "7.0.0",
     "aws-sdk": "2.408.0",
+    "babel-jest": "24.3.1",
     "babel-loader": "8.0.5",
     "babel-plugin-styled-components": "1.10.0",
+    "enzyme": "3.9.0",
+    "enzyme-adapter-react-16": "1.10.0",
     "eslint": "5.14.1",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-plugin-import": "2.16.0",
     "eslint-plugin-react": "7.12.4",
+    "jest": "24.3.1",
     "nodemon": "1.18.10",
     "webpack": "4.29.5",
     "webpack-dev-middleware": "3.6.0",
@@ -43,7 +47,10 @@
   "scripts": {
     "start": "cd server && NODE_ENV=development nodemon server.js",
     "lint": "eslint . --fix --cache",
-    "start:db": "cd server && NODE_ENV=development node dynamoDBLocal.js"
+    "start:db": "cd server && NODE_ENV=development node dynamoDBLocal.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --colors"
   },
   "author": "fafenback & fukoyamashisu",
   "license": "MIT"

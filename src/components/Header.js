@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import header from '../../assets/images/header.png';
+// import header from '../../assets/images/header.png';
 
 const StyledHeader = styled.div`
     margin-right: 20px;
@@ -11,6 +11,7 @@ const StyledHeader = styled.div`
 `;
 
 const Header = (props) => <StyledHeader>
+    <div>Header</div>
 </StyledHeader>;
 
 Header.propTypes = {};
