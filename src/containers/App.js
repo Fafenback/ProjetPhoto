@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Switch } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { Switch, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import Route from 'react-router-dom/Route';
 import withRouter from 'react-router-dom/withRouter';
@@ -11,6 +11,7 @@ import routes from '../routes';
 import Header from '../components/Header';
 import BottomNavbar from '../components/BottomNavbar';
 import Fade from '../styled/Fade';
+import { AppContext } from '../contexts/AppContext';
 
 
 const StyledContainer = styled(Container)`
@@ -30,11 +31,22 @@ const StyledContainer = styled(Container)`
   background: linear-gradient(to left top, ${(props) => props.theme.primary}, ${(props) => props.theme.secondary} 150%);
   }
 `;
+
 const App = (props) => {
-  const { location } = props;
+  const { location: { pathname } } = props;
   const [isLoginPage, checkLoginPage] = useState('true');
+  const { state } = useContext(AppContext);
+
+  //protect routes if no user is connected
+  if (pathname !== '/' && !state.user) {
+    return <Redirect to='/' />;
+  }
+  // skip login page if user is already connected
+  if (state.user && pathname === '/') {
+    return <Redirect to='/news' />;
+  }
   useEffect(() => {
-    if (location.pathname === '/') {
+    if (pathname === '/') {
       checkLoginPage('true')
     } else {
       checkLoginPage('false')
@@ -55,7 +67,6 @@ const App = (props) => {
     </React.Fragment>
   );
 };
-
 App.propTypes = {
   history: PropTypes.object,
 };

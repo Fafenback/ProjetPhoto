@@ -11,7 +11,7 @@ const StyledHeader = styled.div`
 `;
 
 const Header = (props) => <StyledHeader>
-    <div>Header</div>
+  <div>Header</div>
 </StyledHeader>;
 
 Header.propTypes = {};

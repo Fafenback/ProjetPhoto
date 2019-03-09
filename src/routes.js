@@ -1,4 +1,5 @@
 import React from 'react';
+import { LoginProvider } from './contexts/LoginContext';
 import News from './containers/News';
 import Galery from './containers/Galery';
 import Login from './containers/Login';
@@ -13,7 +14,7 @@ const routes = [
   },
   {
     path: '/',
-    render: (props) => <Fade time={'1s'}><Login {...props} /></Fade>,
+    render: (props) => <Fade time={'1s'}><LoginProvider><Login {...props} /></LoginProvider></Fade>,
     exact: true,
   },
   {
