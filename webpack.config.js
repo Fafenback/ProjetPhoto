@@ -37,6 +37,17 @@ module.exports = {
         ],
         exclude: [/node_modules/, /server/],
       },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              publicPath: 'assets',
+            },
+          },
+        ],
+      },
     ],
   },
   externals: [nodeExternals()],
