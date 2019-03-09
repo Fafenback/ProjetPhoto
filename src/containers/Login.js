@@ -18,6 +18,8 @@ import {
     ADD_PSEUDO,
     ADD_LOGIN_ERROR,
 } from '../contexts/actions/loginActions';
+import { AppContext } from '../contexts/AppContext';
+import { ADD_USER } from '../contexts/actions/appActions';
 
 const Center = styled.div`
     padding-top: 30%;
@@ -31,6 +33,8 @@ const Login = (props) => {
         }, dispatch,
     } = useContext(LoginContext);
 
+    const appContext = useContext(AppContext);
+
     const changeLastname = (e) => dispatch({ type: ADD_LASTNAME, payload: { lastname: e.target.value } });
     const changeFirstname = (e) => dispatch({ type: ADD_FIRSTNAME, payload: { firstname: e.target.value } });
     const changeCode = (e) => dispatch({ type: ADD_CODE, payload: { code: e.target.value } });
@@ -42,7 +46,7 @@ const Login = (props) => {
         },
     });
 
-    const postUser = () => axios.post('/auth', { firstname, lastname, code, pseudo }).then((res) => console.log(res)).then(() => history.push('/news')).catch((error) => handleError(error));
+    const postUser = () => axios.post('/auth', { firstname, lastname, code, pseudo }).then((res) => appContext.dispatch({ type: ADD_USER, payload: { user: res.data } })).then(() => history.push('/news')).catch((error) => handleError(error));
 
     return <Center>
         <Grid textAlign='center'>

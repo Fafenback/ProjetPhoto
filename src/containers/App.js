@@ -34,7 +34,6 @@ const StyledContainer = styled(Container)`
 
 const App = (props) => {
   const { location: { pathname } } = props;
-  const [isLoginPage, checkLoginPage] = useState('true');
   const { state } = useContext(AppContext);
 
   //protect routes if no user is connected
@@ -45,17 +44,17 @@ const App = (props) => {
   if (state.user && pathname === '/') {
     return <Redirect to='/news' />;
   }
-  useEffect(() => {
-    if (pathname === '/') {
-      checkLoginPage('true')
-    } else {
-      checkLoginPage('false')
-    }
-  }, [location.pathname])
+  // useEffect(() => {
+  //   if (pathname === '/') {
+  //     checkLoginPage('true')
+  //   } else {
+  //     checkLoginPage('false')
+  //   }
+  // }, [location.pathname])
   return (
     <React.Fragment>
       <Route path='/:path' render={(props) => <Fade><Header {...props} /></Fade>} />
-      <StyledContainer isloginpage={isLoginPage}>
+      <StyledContainer>
         <Switch>
           {routes.map((route) => {
             const key = uniqueId('container_');
