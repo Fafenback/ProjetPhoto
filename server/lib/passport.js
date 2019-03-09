@@ -13,20 +13,24 @@ async (req, username, password, done) => {
     let user = await Users.get(username);
 
     if (!user) {
-      // create user
-      const { firstname, lastname, pseudo } = req.body;
-      const newUser = new Users({
-        firstname,
-        lastname,
-        pseudo,
-        isAdmin,
-      });
+      try {
+        // create user
+        const { firstname, lastname, pseudo } = req.body;
+        const newUser = new Users({
+          firstname,
+          lastname,
+          pseudo,
+          isAdmin,
+        });
 
-      // set user fullname (<firstName_lastName> to lowercase)
-      await newUser.setFullName();
+        // set user fullname (<firstName_lastName> to lowercase)
+        await newUser.setFullName();
 
-      // Put user in dynamodb table
-      user = await newUser.save();
+        // Put user in dynamodb table
+        user = await newUser.save();
+      } catch (e) {
+        return done(null, false, { message: e.message });
+      }
     }
 
     return done(null, user);
