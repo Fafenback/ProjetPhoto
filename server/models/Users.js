@@ -51,17 +51,17 @@ const usersSchema = new Schema({
     default: 0,
   },
 },
-{
-  create: true, // Create table in DB, if it does not exist,
-  update: true,
-  saveUnknown: isDev,
-  errorUnknown: isDev,
-  timestamps: true,
-  throughput: { read: 5, write: 5 },
-});
+  {
+    create: true, // Create table in DB, if it does not exist,
+    update: true,
+    saveUnknown: isDev,
+    errorUnknown: isDev,
+    timestamps: true,
+    throughput: { read: 5, write: 5 },
+  });
 
 usersSchema.methods.setFullName = function setFullName() {
   this.fullname = `${this.firstname}_${this.lastname}`;
 };
 
-module.exports = dynamoose.model('Users', usersSchema);
+module.exports = dynamoose.model('User', usersSchema);
