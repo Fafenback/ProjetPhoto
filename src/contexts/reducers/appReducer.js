@@ -1,6 +1,7 @@
 import { RESET_APP, CHANGE_TAB } from '../actions/appActions';
 
 export const initialState = {
+  user: null,
 };
 
 const appReducer = (state, action) => {
