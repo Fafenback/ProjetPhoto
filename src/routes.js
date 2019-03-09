@@ -3,6 +3,7 @@ import News from './containers/News';
 import Galery from './containers/Galery';
 import Login from './containers/Login';
 import Fade from './styled/Fade';
+import Top from './containers/Top';
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
   {
     path: '/',
     render: (props) => <Fade time={'1s'}><Login {...props} /></Fade>,
+    exact: true,
+  },
+  {
+    path: '/top',
+    render: (props) => <Fade time={'1s'}><Top {...props} /></Fade>,
     exact: true,
   },
   {

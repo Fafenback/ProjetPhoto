@@ -11,7 +11,7 @@ import {
 import styled from 'styled-components';
 
 const Center = styled.div`
-    padding-top: 15%;
+    padding-top: 30%;
 `;
 
 
@@ -27,15 +27,15 @@ const Login = (props) => <Center>
                     <Grid.Row>
                         <Input placeholder={'Prénom'} type='text' />
                     </Grid.Row>
-                    <Divider />
+                    <Divider hidden />
                     <Grid.Row>
                         <Input placeholder={'Nom'} type='text' />
                     </Grid.Row>
-                    <Divider />
+                    <Divider hidden />
                     <Grid.Row>
                         <Input placeholder={'Pseudo'} type='text' />
                     </Grid.Row>
-                    <Divider />
+                    <Divider hidden />
                     <Grid.Row>
                         <Input placeholder={'Code'} type='text' />
                     </Grid.Row>

@@ -2,17 +2,17 @@ import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import { CHANGE_TAB } from '../contexts/actions/appActions';
 
-const News = (props) => {
+const Top = (props) => {
     const { location } = props;
     const { dispatch } = useContext(AppContext);
 
     useEffect(() => {
-        dispatch({ type: CHANGE_TAB, payload: { tabIndex: 1 } })
+        dispatch({ type: CHANGE_TAB, payload: { tabIndex: 2 } })
     }, [location.pathname]);
 
-    return <div>News</div>
+    return <div>Top</div>
 };
 
-News.propTypes = {};
+Top.propTypes = {};
 
-export default News;
+export default Top;
