@@ -5,7 +5,7 @@ const { Schema } = dynamoose;
 
 const isDev = process.env.NODE_ENV === 'development';
 
-const pictureSchema = new Schema({
+const picturesSchema = new Schema({
   pictureId: {
     type: String,
     required: true,
@@ -54,4 +54,4 @@ const pictureSchema = new Schema({
   throughput: { read: 5, write: 5 },
 });
 
-module.exports = dynamoose.model('Pictures', pictureSchema);
+module.exports = dynamoose.model('Pictures', picturesSchema);

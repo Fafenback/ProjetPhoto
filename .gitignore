@@ -97,3 +97,6 @@ build/
 
 # vscode
 .DS_Store
+
+# Dynalite DB
+server/DB/

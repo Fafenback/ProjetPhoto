@@ -7,21 +7,26 @@ passport.use(new LocalStrategy({
   passwordField: 'code',
   passReqToCallback: true,
 },
-(req, username, password, done) => {
-  console.log(req);
-  if (password === process.env.APP_PASSWORD || password === process.env.APP_PASSWORD_MANAGER) {
-    console.log(req);
-    let user = Users.get({ pseudo: username });
+async (req, username, password, done) => {
+  const isAdmin = password === process.env.APP_PASSWORD_MANAGER;
+  if (password === process.env.APP_PASSWORD || isAdmin) {
+    let user = await Users.get(username);
 
-    if (!user.pseudo) {
+    if (!user) {
       // create user
-      const newUser = new Users(req.body);
+      const { firstname, lastname, pseudo } = req.body;
+      const newUser = new Users({
+        firstname,
+        lastname,
+        pseudo,
+        isAdmin,
+      });
 
       // set user fullname (<firstName_lastName> to lowercase)
-      newUser.setFullName();
+      await newUser.setFullName();
 
       // Put user in dynamodb table
-      user = newUser.save();
+      user = await newUser.save();
     }
 
     return done(null, user);
@@ -30,12 +35,10 @@ passport.use(new LocalStrategy({
 }));
 
 passport.serializeUser((user, cb) => {
-  console.log(user, 'jhkshjkdhjkhkjdhjkhjks');
   cb(null, user.pseudo);
 });
 
 passport.deserializeUser((pseudo, cb) => {
-  console.log(pseudo, 'jhkshjkdhjkhkjdhjkhjksaaaaaaaas');
   Users.get({ pseudo }, (err, user) => {
     cb(err, user);
   });

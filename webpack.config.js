@@ -2,6 +2,7 @@ const nodeExternals = require('webpack-node-externals');
 const webpack = require('webpack');
 const path = require('path');
 
+console.log(path.resolve(__dirname, 'server/'));
 module.exports = {
   entry: {
     index: [
@@ -35,7 +36,7 @@ module.exports = {
             },
           },
         ],
-        exclude: [/node_modules/, /server/],
+        exclude: [/node_modules/, path.resolve(__dirname, 'server/')],
       },
       {
         test: /\.(png|jpg|gif)$/,

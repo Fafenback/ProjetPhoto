@@ -6,6 +6,6 @@ module.exports.apiRes = {
   }),
   failed: (error) => ({
     success: false,
-    message: error,
+    error,
   }),
 };

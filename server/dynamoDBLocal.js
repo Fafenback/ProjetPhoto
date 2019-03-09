@@ -9,8 +9,8 @@ const createDynamooseInstance = () => {
 
 
 const setupAndStartDynamoLocal = async () => {
-  const dynaliteServer = dynalite();
-  await dynaliteServer.listen(8000);
+  const dynaliteServer = dynalite({ path: `${__dirname}/DB` });
+  await dynaliteServer.listen(7500);
   dynamoose.local();
 };
 

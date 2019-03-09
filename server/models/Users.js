@@ -6,40 +6,45 @@ const { Schema } = dynamoose;
 
 const isDev = process.env.NODE_ENV === 'development';
 
-const userSchema = new Schema({
-  userId: {
-    type: String,
-    required: true,
-    hashKey: true,
-    default: uuid,
-  },
-  firstName: {
-    type: String,
-    trim: true,
-    required: true,
-    set(value) {
-      const v = sanitizeHtml(value);
-      return v.charAt(0).toUpperCase() + v.slice(1);
-    },
-  },
-  lastName: {
-    type: String,
-    trim: true,
-    required: true,
-    set(value) {
-      const v = sanitizeHtml(value);
-      return v.charAt(0).toUpperCase() + v.slice(1);
-    },
-  },
-  fullName: {
-    type: String,
-    trim: true,
-    lowercase: true,
-  },
+const usersSchema = new Schema({
   pseudo: {
     type: String,
     trim: true,
     required: true,
+    hashKey: true,
+  },
+  firstname: {
+    type: String,
+    trim: true,
+    required: true,
+    set(value) {
+      const v = sanitizeHtml(value);
+      return v.charAt(0).toUpperCase() + v.slice(1);
+    },
+  },
+  lastname: {
+    type: String,
+    trim: true,
+    required: true,
+    set(value) {
+      const v = sanitizeHtml(value);
+      return v.charAt(0).toUpperCase() + v.slice(1);
+    },
+  },
+  fullname: {
+    type: String,
+    trim: true,
+    lowercase: true,
+  },
+  userId: {
+    type: String,
+    required: true,
+    default: uuid,
+  },
+  isAdmin: {
+    type: Boolean,
+    required: true,
+    default: false,
   },
   likes: {
     type: Number,
@@ -55,8 +60,8 @@ const userSchema = new Schema({
   throughput: { read: 5, write: 5 },
 });
 
-userSchema.methods.setFullName = function setName() {
-  this.fullName = `${this.firstName}_${this.lastName}`;
+usersSchema.methods.setFullName = function setFullName() {
+  this.fullname = `${this.firstname}_${this.lastname}`;
 };
 
-module.exports = dynamoose.model('Users', userSchema);
+module.exports = dynamoose.model('Users', usersSchema);

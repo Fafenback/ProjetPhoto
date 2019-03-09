@@ -1,3 +1,4 @@
+const dynamoose = require('dynamoose');
 const UsersModel = require('../models/Users');
 const { apiRes } = require('../lib/apiResponse');
 
