@@ -5,6 +5,6 @@ const router = express.Router();
 
 const user = new UsersController();
 
-router.use('/', (req, res, next) => user.getCurrent(req, res, next));
-
+router.post('/create', (req, res, next) => user.setNewUser(req, res, next));
+router.get('/all', (req, res, next) => user.getAllUsers(req, res, next));
 module.exports = router;
