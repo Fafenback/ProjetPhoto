@@ -7,6 +7,46 @@ class Users {
     this.Users = UsersModel;
   }
 
+  /**
+   * @api {post} users/create Create
+   * @apiName Create User
+   * @apiGroup Users
+   *
+   *
+   * @apiSuccess {String} firstname Firstname of the User.
+   * @apiSuccess {String} lastname  Lastname of the User.
+   * @apiSuccess {String} pseudo  Psuedo of the User.
+   * @apiSuccess {Number} likes  Number of the Likes.
+   * @apiSuccess {Boolean} isAdmin   Admin or classic user.
+   * @apiSuccess {String} updatedAt  Last update date.
+   * @apiSuccess {String} createdAt  Created date.
+   * @apiSuccess {String} userId  User unique key.
+   * * @apiSuccessExample {json} Success-Response:
+   *     HTTP/1.1 200 OK
+   *    {
+   *      "success": true,
+   *      "data":{
+   *        "firstname": "John",
+   *        "lastname": "Doe",
+   *        "createdAt": "2019-03-09T17:10:39.475Z"
+   *        "updatedAt": "2019-03-09T17:10:39.475Z",
+   *        "fullname": "John_Doe",
+   *        "isAdmin": false,
+   *        "likes": 2,
+   *        "lastname": "Bob",
+   *        "userId": "21781907-ed6a-4594-9239-35561a352b62",
+   *      }
+   *    }
+   *
+   *    @apiErrorExample {json} Error-Response:
+   *      HTTP/1.1 200 OK
+   *      HTTP/1.1 401 Not Authorized
+   *      HTTP/1.1 500 Internal error
+   *     {
+   *        "error": "User not created",
+   *        "success": false
+   *     }
+   */
   async setNewUser(req, res, next) {
     const { body } = req;
 
@@ -27,26 +67,111 @@ class Users {
     }
   }
 
+  /**
+   * @api {post} users/get/:name  Get
+   * @apiName GetUser
+   * @apiGroup Users
+   *
+   * @apiParam {String} pseudo  Pseudo of the User.
+   *
+   * @apiSuccess {String} firstname Firstname of the User.
+   * @apiSuccess {String} lastname  Lastname of the User.
+   * @apiSuccess {String} pseudo  Psuedo of the User.
+   * @apiSuccess {Number} likes  Number of the Likes.
+   * @apiSuccess {Boolean} isAdmin   Admin or classic user.
+   * @apiSuccess {String} updatedAt  Last update date.
+   * @apiSuccess {String} createdAt  Created date.
+   * @apiSuccess {String} userId  User unique key.
+   * @apiSuccessExample {json} Success-Response:
+   *     HTTP/1.1 200 OK
+   *    {
+   *      "success": true,
+   *      "data":{
+   *        "firstname": "John",
+   *        "lastname": "Doe",
+   *        "createdAt": "2019-03-09T17:10:39.475Z"
+   *        "updatedAt": "2019-03-09T17:10:39.475Z",
+   *        "fullname": "John_Doe",
+   *        "isAdmin": false,
+   *        "likes": 2,
+   *        "lastname": "Bob",
+   *        "userId": "21781907-ed6a-4594-9239-35561a352b62",
+   *      }
+   *    }
+   *
+   * @apiErrorExample {json} Error-Response:
+   *      HTTP/1.1 200 OK
+   *      HTTP/1.1 401 Not Authorized
+   *      HTTP/1.1 500 Internal error
+   *     {
+   *        "error": "UserNotFound",
+   *        "success": false
+   *     }
+   */
   async getUser(req, res, next) {
     try {
-      const { id } = req.params;
-      if (!id) {
+      const { name } = req.params;
+      if (!name) {
         throw new Error('Missing params id in request');
       }
-      const user = await this.Users.query('userId').eq(id).exec();
+      const user = await this.Users.query('pseudo').eq(name).exec();
       res.status(200).json(apiRes.success(user));
     } catch (e) {
       res.status(400).json(apiRes.failed(e.message));
     }
   }
 
+
+  /**
+   * @api {post} users/update/:name Update
+   * @apiName Update User
+   * @apiGroup Users
+   *
+   *
+   * @apiParam {String} pseudo  Pseudo of the User.
+   *
+   *
+   * @apiSuccess {String} firstname Firstname of the User.
+   * @apiSuccess {String} lastname  Lastname of the User.
+   * @apiSuccess {String} pseudo  Psuedo of the User.
+   * @apiSuccess {Number} likes  Number of the Likes.
+   * @apiSuccess {Boolean} isAdmin   Admin or classic user.
+   * @apiSuccess {String} updatedAt  Last update date.
+   * @apiSuccess {String} createdAt  Created date.
+   * @apiSuccess {String} userId  User unique key.
+   * * @apiSuccessExample {json} Success-Response:
+   *     HTTP/1.1 200 OK
+   *    {
+   *      "success": true,
+   *      "data":{
+   *        "firstname": "John",
+   *        "lastname": "Doe",
+   *        "createdAt": "2019-03-09T17:10:39.475Z"
+   *        "updatedAt": "2019-03-09T17:10:39.475Z",
+   *        "fullname": "John_Doe",
+   *        "isAdmin": false,
+   *        "likes": 2,
+   *        "lastname": "Bob",
+   *        "userId": "21781907-ed6a-4594-9239-35561a352b62",
+   *      }
+   *    }
+   *
+   *    @apiErrorExample {json} Error-Response:
+   *      HTTP/1.1 200 OK
+   *      HTTP/1.1 401 Not Authorized
+   *      HTTP/1.1 500 Internal error
+   *     {
+   *        "error": "User not updated",
+   *        "success": false
+   *     }
+   */
   async updateUser(req, res, next) {
     try {
       const { params, body } = req.params;
-      if (!params.id) {
+      if (!params.name) {
         throw new Error('Missing params id in request');
       }
-      const user = await this.Users.query('userId').eq(params.id).exec();
+      const user = await this.Users.query('pseudo').eq(params.name).exec();
       const updatedUser = await this.Users.update(user, body, { returnValues: 'ALL_NEW' });
 
       res.status(200).json(apiRes.success(updatedUser));
@@ -55,6 +180,59 @@ class Users {
     }
   }
 
+  /**
+   * @api {post} users/all Get All
+   * @apiName GetAll Users
+   * @apiGroup Users
+   *
+   *
+   * @apiSuccess {String} firstname Firstname of the User.
+   * @apiSuccess {String} lastname  Lastname of the User.
+   * @apiSuccess {String} pseudo  Psuedo of the User.
+   * @apiSuccess {Number} likes  Number of the Likes.
+   * @apiSuccess {Boolean} isAdmin   Admin or classic user.
+   * @apiSuccess {String} updatedAt  Last update date.
+   * @apiSuccess {String} createdAt  Created date.
+   * @apiSuccess {String} userId  User unique key.
+   * * @apiSuccessExample {json} Success-Response:
+   *     HTTP/1.1 200 OK
+   *    {
+   *      "success": true,
+   *      "data":[
+   *        {
+   *          "firstname": "John",
+   *          "lastname": "Doe",
+   *          "createdAt": "2019-03-09T17:10:39.475Z"
+   *          "updatedAt": "2019-03-09T17:10:39.475Z",
+   *          "fullname": "John_Doe",
+   *          "isAdmin": false,
+   *          "likes": 2,
+   *          "lastname": "Bob",
+   *          "userId": "21781907-ed6a-4594-9239-35561a352b62",
+   *        },
+   *        {
+   *          "firstname": "John",
+   *          "lastname": "Doe",
+   *          "createdAt": "2019-03-09T17:10:39.475Z"
+   *          "updatedAt": "2019-03-09T17:10:39.475Z",
+   *          "fullname": "John_Doe",
+   *          "isAdmin": false,
+   *          "likes": 2,
+   *          "lastname": "Bob",
+   *          "userId": "21781907-ed6a-4594-9239-35561a352b62",
+   *        }
+   *      ]
+   *    }
+   *
+   *    @apiErrorExample {json} Error-Response:
+   *      HTTP/1.1 200 OK
+   *      HTTP/1.1 401 Not Authorized
+   *      HTTP/1.1 500 Internal error
+   *     {
+   *        "error": "Could not return users",
+   *        "success": false
+   *     }
+   */
   async getAllUsers(req, res, next) {
     try {
       const users = await this.Users.scan().all().exec();
@@ -64,13 +242,56 @@ class Users {
     }
   }
 
+  /**
+   * @api {post} users/delete/:name Delete
+   * @apiName Delete User
+   * @apiGroup Users
+   *
+   *
+   * @apiParam {String} pseudo  Pseudo of the User.
+   *
+   *
+   * @apiSuccess {String} firstname Firstname of the User.
+   * @apiSuccess {String} lastname  Lastname of the User.
+   * @apiSuccess {String} pseudo  Psuedo of the User.
+   * @apiSuccess {Number} likes  Number of the Likes.
+   * @apiSuccess {Boolean} isAdmin   Admin or classic user.
+   * @apiSuccess {String} updatedAt  Last update date.
+   * @apiSuccess {String} createdAt  Created date.
+   * @apiSuccess {String} userId  User unique key.
+   * * @apiSuccessExample {json} Success-Response:
+   *     HTTP/1.1 200 OK
+   *    {
+   *      "success": true,
+   *      "data":{
+   *        "firstname": "John",
+   *        "lastname": "Doe",
+   *        "createdAt": "2019-03-09T17:10:39.475Z"
+   *        "updatedAt": "2019-03-09T17:10:39.475Z",
+   *        "fullname": "John_Doe",
+   *        "isAdmin": false,
+   *        "likes": 2,
+   *        "lastname": "Bob",
+   *        "userId": "21781907-ed6a-4594-9239-35561a352b62",
+   *      }
+   *    }
+   *
+   *    @apiErrorExample {json} Error-Response:
+   *      HTTP/1.1 200 OK
+   *      HTTP/1.1 401 Not Authorized
+   *      HTTP/1.1 500 Internal error
+   *     {
+   *        "error": "User not deleted",
+   *        "success": false
+   *     }
+   */
   async deleteUser(req, res, next) {
     try {
-      const { id } = req.params;
-      if (!id) {
+      const { name } = req.params;
+      if (!name) {
         throw new Error('Missing params id in request');
       }
-      const user = await this.Users.delete({ userId: id }, { update: true });
+      const user = await this.Users.delete({ pseudo: name }, { update: true });
       res.status(200).json(apiRes.success(user));
     } catch (e) {
       res.status(400).json(apiRes.failed(e.message));

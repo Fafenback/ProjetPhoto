@@ -62,7 +62,7 @@ app.post('/auth', (req, res, next) => {
       res.status(500).json({ error, success: false });
     }
     if (!user) {
-      res.status(401).json({ error: info.message, success: false });
+      res.status(200).json({ error: info.message, success: false });
     }
     req.logIn(user, (err) => {
       if (error) {
@@ -75,6 +75,10 @@ app.post('/auth', (req, res, next) => {
 
 app.use('/users', usersRoads);
 app.use('/pictures', picturesRoads);
+
+app.get('/apidoc', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../src/public/apidoc/index.html'));
+});
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../src/public/index.html'));
