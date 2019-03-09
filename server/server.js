@@ -1,12 +1,14 @@
 const express = require('express');
-
-const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
-const webpack = require('webpack');
 const path = require('path');
+const webpack = require('webpack');
 const webpackConfig = require('../webpack.config');
+
+const app = express();
+
+// Hack solve issue with dynamoose XXX config region is missing
+process.env.AWS_REGION = 'eu-west-1';
 
 const compiler = webpack(webpackConfig);
 
@@ -27,6 +29,13 @@ app.use(require('webpack-hot-middleware')(compiler));
 
 // Serve static dir
 app.use(express.static(path.resolve(__dirname, '../src/public')));
+
+// Router
+const picturesRoads = require('./routes/picturesRoad');
+const usersRoads = require('./routes/usersRoad');
+
+app.use('/users', usersRoads);
+app.use('/pictures', picturesRoads);
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../src/public/index.html'));
