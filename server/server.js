@@ -50,7 +50,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Serve static dir
-app.use(express.static(path.resolve(__dirname, '../src/public')));
+app.use(express.static(path.resolve('../dist')));
 
 // Router
 const picturesRoads = require('./routes/picturesRoad');
@@ -77,11 +77,11 @@ app.use('/users', usersRoads);
 app.use('/pictures', picturesRoads);
 
 app.get('/apidoc', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../src/public/apidoc/index.html'));
+  res.sendFile(path.resolve('../apidoc/index.html'));
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../src/public/index.html'));
+  res.sendFile(path.resolve('../dist/index.html'));
 });
 
 app.listen(process.env.PORT || 3000, () => {

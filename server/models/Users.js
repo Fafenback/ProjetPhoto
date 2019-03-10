@@ -51,14 +51,20 @@ const usersSchema = new Schema({
     default: 0,
   },
 },
-  {
-    create: true, // Create table in DB, if it does not exist,
-    update: true,
-    saveUnknown: isDev,
-    errorUnknown: isDev,
-    timestamps: true,
-    throughput: { read: 5, write: 5 },
-  });
+{
+  create: true, // Create table in DB, if it does not exist,
+  update: true,
+  saveUnknown: isDev,
+  errorUnknown: isDev,
+  timestamps: true,
+  throughput: { read: 5, write: 5 },
+  waitForActive: true, // Wait for table to be created before trying to use it
+  streamOptions: { // sets table stream options
+    enabled: true, // sets if stream is enabled on the table
+    type: 'NEW_IMAGE', // sets the stream type (NEW_IMAGE | OLD_IMAGE | NEW_AND_OLD_IMAGES | KEYS_ONLY)
+  },
+  defaultReturnValues: 'ALL_NEW',
+});
 
 usersSchema.methods.setFullName = function setFullName() {
   this.fullname = `${this.firstname}_${this.lastname}`;

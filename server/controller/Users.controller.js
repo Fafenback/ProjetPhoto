@@ -1,4 +1,3 @@
-const dynamoose = require('dynamoose');
 const UsersModel = require('../models/Users');
 const { apiRes } = require('../lib/apiResponse');
 
@@ -12,6 +11,9 @@ class Users {
    * @apiName Create User
    * @apiGroup Users
    *
+   * @apiParam {String} pseudo  Pseudo of the User.
+   * @apiParam {String} firstname Firstname of the User.
+   * @apiParam {String} lastname  Lastname of the User.
    *
    * @apiSuccess {String} firstname Firstname of the User.
    * @apiSuccess {String} lastname  Lastname of the User.

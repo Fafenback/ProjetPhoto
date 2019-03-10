@@ -1,8 +1,8 @@
 const nodeExternals = require('webpack-node-externals');
 const webpack = require('webpack');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-console.log(path.resolve(__dirname, 'server/'));
 module.exports = {
   entry: {
     index: [
@@ -11,8 +11,8 @@ module.exports = {
     ],
   },
   output: {
-    path: path.resolve(__dirname, 'src/public'),
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist/'),
+    filename: '[hash].js',
     publicPath: '/',
   },
   mode: process.env.ENV === 'production' ? 'production' : 'development',
@@ -44,7 +44,8 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              publicPath: 'src/public',
+              publicPath: 'dist/',
+              name: '[name].[ext]',
             },
           },
         ],
@@ -52,5 +53,11 @@ module.exports = {
     ],
   },
   externals: [nodeExternals()],
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/public/index.html'),
+      inject: 'body',
+    }),
+  ],
 };
