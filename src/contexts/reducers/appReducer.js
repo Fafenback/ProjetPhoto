@@ -6,17 +6,16 @@ export const initialState = {
 
 const appReducer = (state, action) => {
   const { tabIndex, user } = action.payload;
-  console.log('reducer');
   switch (action.type) {
-  case RESET_APP:
-    return initialState;
-  case CHANGE_TAB:
-    return { ...state, tabIndex };
-  case ADD_USER:
-    return { ...state, user };
+    case RESET_APP:
+      return initialState;
+    case CHANGE_TAB:
+      return { ...state, tabIndex };
+    case ADD_USER:
+      return { ...state, user };
 
-  default:
-    return initialState;
+    default:
+      return initialState;
   }
 };
 

@@ -3,7 +3,6 @@ import { Switch, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import Route from 'react-router-dom/Route';
 import withRouter from 'react-router-dom/withRouter';
-import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 
 import { Container } from 'semantic-ui-react';
@@ -12,29 +11,28 @@ import Header from '../components/Header';
 import BottomNavbar from '../components/BottomNavbar';
 import Fade from '../styled/Fade';
 import { AppContext } from '../contexts/AppContext';
+import { CHANGE_TAB, ADD_USER } from '../contexts/actions/appActions';
 
 
 const StyledContainer = styled(Container)`
-@media only screen and (max-width: 767px) {
+@media only screen and (min-width: 400px) {
   &&{
   margin: 0px !important;
   overflow: hidden;
+  width: 100%;
   height: 100%;
   background: linear-gradient(to right bottom, ${(props) => props.theme.primary}, ${(props) => props.theme.secondary} 150%);
   ${(props) => props.isloginpage === 'false' && { background: props.theme.whitePink }}
   }
 }
-  & {
-  margin: 0px !important;
-  overflow: hidden;
-  height: 100%;
-  background: linear-gradient(to left top, ${(props) => props.theme.primary}, ${(props) => props.theme.secondary} 150%);
-  }
 `;
 
 const App = (props) => {
   const { location: { pathname } } = props;
-  const { state } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
+
+  const changeTab = (index) => dispatch({ type: CHANGE_TAB, payload: { tabIndex: index } });
+  const addUser = (user) => dispatch({ type: ADD_USER, payload: user });
 
   // protect routes if no user is connected
   if (pathname !== '/' && !state.user) {
@@ -56,10 +54,7 @@ const App = (props) => {
       <Route path='/:path' render={(props) => <Fade><Header {...props} /></Fade>} />
       <StyledContainer>
         <Switch>
-          {routes.map((route) => {
-            const key = uniqueId('container_');
-            return <Route key={key} {...route} />;
-          })}
+          {routes.map((route, i) => <Route key={i} {...route} />)}
         </Switch>
         <Route path='/:path' render={(props) => <Fade><BottomNavbar {...props} /></Fade>} />
       </StyledContainer>

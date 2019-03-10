@@ -8,10 +8,10 @@ import {
 } from '../actions/loginActions';
 
 export const initialState = {
-  firstname: '',
-  lastname: '',
-  pseudo: '',
-  code: '',
+  firstname: 'aaaa',
+  lastname: 'aaa',
+  pseudo: 'aaaa',
+  code: '200719',
 };
 
 const loginReducer = (state, action) => {
@@ -19,20 +19,20 @@ const loginReducer = (state, action) => {
     lastname, firstname, pseudo, code, error,
   } = action.payload;
   switch (action.type) {
-  case RESET_LOGIN:
-    return initialState;
-  case ADD_CODE:
-    return { ...state, code };
-  case ADD_LASTNAME:
-    return { ...state, lastname };
-  case ADD_FIRSTNAME:
-    return { ...state, firstname };
-  case ADD_PSEUDO:
-    return { ...state, pseudo };
-  case ADD_LOGIN_ERROR:
-    return { ...state, error: error.message };
-  default:
-    return initialState;
+    case RESET_LOGIN:
+      return initialState;
+    case ADD_CODE:
+      return { ...state, code };
+    case ADD_LASTNAME:
+      return { ...state, lastname };
+    case ADD_FIRSTNAME:
+      return { ...state, firstname };
+    case ADD_PSEUDO:
+      return { ...state, pseudo };
+    case ADD_LOGIN_ERROR:
+      return { ...state, error: error.message };
+    default:
+      return initialState;
   }
 };
 
