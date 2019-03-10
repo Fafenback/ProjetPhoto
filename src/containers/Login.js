@@ -23,7 +23,13 @@ import { ADD_USER } from '../contexts/actions/appActions';
 import headerColored from '../assets/images/headerColored.png';
 
 const Center = styled.div`
+@media only screen and (min-width: 850px) {
+  &&{
+    padding-top: 10%;
+  }
+}
     padding-top: 30%;
+
 `;
 
 const Login = (props) => {
@@ -54,28 +60,30 @@ const Login = (props) => {
   return <Center>
     <Grid textAlign='center'>
       <Header>
-                S'identifier
+        S'identifier
       </Header>
       <img src='./headerColored.png' />
       <Grid.Row>
         <Grid.Column></Grid.Column>
-        <Grid.Column mobile={12}>
+        <Grid.Column mobile={12} computer={4}>
           <Segment>
+            <Divider hidden />
             <Grid.Row>
               <Input placeholder={'Prénom'} type='text' onChange={changeFirstname} value={firstname} />
             </Grid.Row>
-            <Divider />
+            <Divider hidden />
             <Grid.Row>
               <Input placeholder={'Nom'} type='text' onChange={changeLastname} value={lastname} />
             </Grid.Row>
-            <Divider />
+            <Divider hidden />
             <Grid.Row>
               <Input placeholder={'Pseudo'} type='text' onChange={changePseudo} value={pseudo} />
             </Grid.Row>
-            <Divider />
+            <Divider hidden />
             <Grid.Row>
               <Input placeholder={'Code'} type='text' onChange={changeCode} value={code} />
             </Grid.Row>
+            <Divider hidden />
           </Segment>
         </Grid.Column>
         <Grid.Column></Grid.Column>

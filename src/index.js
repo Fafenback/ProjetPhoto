@@ -11,13 +11,15 @@ const render = (Component) => {
   ReactDOM.render(
 
     <AppContainer>
-      <AppProvider>
+      <React.Fragment>
         <ThemeProvider theme={theme}>
           <BrowserRouter>
-            <App />
+            <AppProvider>
+              <App />
+            </AppProvider>
           </BrowserRouter>
         </ThemeProvider>
-      </AppProvider>
+      </React.Fragment>
     </AppContainer>,
 
     document.getElementById('root'),

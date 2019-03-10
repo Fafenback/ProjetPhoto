@@ -1,16 +1,23 @@
 import React, { useEffect, useContext } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import { CHANGE_TAB } from '../contexts/actions/appActions';
+import { Image } from 'semantic-ui-react';
 
 const Galery = (props) => {
-  const { location } = props;
-  const { dispatch } = useContext(AppContext);
+    const { dispatch } = useContext(AppContext);
+    useEffect(() => {
+        dispatch({ type: CHANGE_TAB, payload: { tabIndex: 3 } })
+    }, []);
 
-  useEffect(() => {
-    dispatch({ type: CHANGE_TAB, payload: { tabIndex: 3 } });
-  }, [location.pathname]);
+    return <div>Galery
 
-  return <div>Galery</div>;
+        {/* <div><Image.Group size='small'>
+            <Image src={''} />
+            <Image src={''} />
+            <Image src={''} />
+            <Image src={''} />
+        </Image.Group></div> */}
+    </div>
 };
 
 Galery.propTypes = {};
