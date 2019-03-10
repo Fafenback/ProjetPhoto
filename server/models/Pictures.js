@@ -40,6 +40,16 @@ const picturesSchema = new Schema({
     trim: true,
     required: true,
   },
+  downloadLink: {
+    type: String,
+    trim: true,
+    required: true,
+  },
+  link: {
+    type: String,
+    trim: true,
+    required: true,
+  },
   likes: {
     type: Number,
     default: 0,
@@ -52,6 +62,12 @@ const picturesSchema = new Schema({
   errorUnknown: isDev,
   timestamps: true,
   throughput: { read: 5, write: 5 },
+  waitForActive: true, // Wait for table to be created before trying to use it
+  streamOptions: { // sets table stream options
+    enabled: true, // sets if stream is enabled on the table
+    type: 'NEW_IMAGE', // sets the stream type (NEW_IMAGE | OLD_IMAGE | NEW_AND_OLD_IMAGES | KEYS_ONLY)
+  },
+  defaultReturnValues: 'ALL_NEW',
 });
 
 module.exports = dynamoose.model('Pictures', picturesSchema);

@@ -3,5 +3,5 @@ export const theme = {
   secondary: '#FF0061',
   white: '#FFFFFF',
   whitePink: '#FFF0F5',
-  lightGray: '#434141'
+  lightGray: '#434141',
 };

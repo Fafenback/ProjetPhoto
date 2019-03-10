@@ -36,7 +36,7 @@ const App = (props) => {
   const { location: { pathname } } = props;
   const { state } = useContext(AppContext);
 
-  //protect routes if no user is connected
+  // protect routes if no user is connected
   if (pathname !== '/' && !state.user) {
     return <Redirect to='/' />;
   }
