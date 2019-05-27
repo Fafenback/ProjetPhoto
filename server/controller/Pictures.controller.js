@@ -123,13 +123,14 @@ class Pictures {
       if (!id) {
         throw new Error('Missing params id in request');
       }
-      const picture = await this.Users.query('pictureId').eq(id).exec();
+      const picture = await this.Pictures.query('pictureId')
+        .eq(id)
+        .exec();
       res.status(200).json(apiRes.success(picture));
     } catch (e) {
       res.status(400).json(apiRes.failed(e.message));
     }
   }
-
 
   /**
    * @api {post} pictures/update/:id Update
@@ -183,7 +184,9 @@ class Pictures {
       if (!params.id) {
         throw new Error('Missing params id in request');
       }
-      const picture = await this.Pictures.query('pictureId').eq(params.id).exec();
+      const picture = await this.Pictures.query('pictureId')
+        .eq(params.id)
+        .exec();
       const updatedPicture = await this.Pictures.update(picture, body, { returnValues: 'ALL_NEW' });
 
       res.status(200).json(apiRes.success(updatedPicture));
@@ -254,7 +257,9 @@ class Pictures {
    */
   async getAllPictures(req, res, next) {
     try {
-      const pictures = await this.Pictures.scan().all().exec();
+      const pictures = await this.Pictures.scan()
+        .all()
+        .exec();
       res.status(200).json(apiRes.success(pictures));
     } catch (e) {
       res.status(400).json(apiRes.failed(e.message));
