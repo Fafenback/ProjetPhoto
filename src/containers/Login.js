@@ -20,7 +20,7 @@ import {
 } from '../contexts/actions/loginActions';
 import { AppContext } from '../contexts/AppContext';
 import { ADD_USER } from '../contexts/actions/appActions';
-import headerColored from '../assets/images/headerColored.png';
+import UploadFile from '../components/UploadFile';
 
 const Center = styled.div`
 @media only screen and (min-width: 850px) {
@@ -62,7 +62,7 @@ const Login = (props) => {
       <Header>
         S'identifier
       </Header>
-      <img src='./headerColored.png' />
+      <UploadFile/>
       <Grid.Row>
         <Grid.Column></Grid.Column>
         <Grid.Column mobile={12} computer={4}>
