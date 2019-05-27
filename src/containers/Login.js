@@ -1,35 +1,25 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Grid,
-  Header,
-  Input,
-  Segment,
-  Button,
-  Divider,
+  Grid, Header, Input, Segment, Button, Divider,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { Image } from 'semantic-ui-react';
 import { LoginContext } from '../contexts/LoginContext';
 import {
-  ADD_CODE,
-  ADD_FIRSTNAME,
-  ADD_LASTNAME,
-  ADD_PSEUDO,
-  ADD_LOGIN_ERROR,
+  ADD_CODE, ADD_FIRSTNAME, ADD_LASTNAME, ADD_PSEUDO, ADD_LOGIN_ERROR,
 } from '../contexts/actions/loginActions';
 import { AppContext } from '../contexts/AppContext';
 import { ADD_USER } from '../contexts/actions/appActions';
-import headerColored from '../assets/images/headerColored.png';
 
 const Center = styled.div`
-@media only screen and (min-width: 850px) {
-  &&{
-    padding-top: 10%;
+  @media only screen and (min-width: 850px) {
+    && {
+      padding-top: 10%;
+    }
   }
-}
-    padding-top: 30%;
-
+  padding-top: 15%;
 `;
 
 const Login = (props) => {
@@ -37,7 +27,8 @@ const Login = (props) => {
   const {
     state: {
       firstname, lastname, code, pseudo,
-    }, dispatch,
+    },
+    dispatch,
   } = useContext(LoginContext);
 
   const appContext = useContext(AppContext);
@@ -53,44 +44,52 @@ const Login = (props) => {
     },
   });
 
-  const postUser = () => axios.post('/auth', {
-    firstname, lastname, code, pseudo,
-  }).then((res) => appContext.dispatch({ type: ADD_USER, payload: { user: res.data } })).then(() => history.push('/news')).catch((error) => handleError(error));
+  const postUser = () => axios
+    .post('/auth', {
+      firstname,
+      lastname,
+      code,
+      pseudo,
+    })
+    .then((res) => appContext.dispatch({ type: ADD_USER, payload: { user: res.data } }))
+    .then(() => history.push('/news'))
+    .catch((error) => handleError(error));
 
-  return <Center>
-    <Grid textAlign='center'>
-      <Header>
-        S'identifier
-      </Header>
-      <img src='./headerColored.png' />
-      <Grid.Row>
-        <Grid.Column></Grid.Column>
-        <Grid.Column mobile={12} computer={4}>
-          <Segment>
-            <Divider hidden />
-            <Grid.Row>
-              <Input placeholder={'Prénom'} type='text' onChange={changeFirstname} value={firstname} />
-            </Grid.Row>
-            <Divider hidden />
-            <Grid.Row>
-              <Input placeholder={'Nom'} type='text' onChange={changeLastname} value={lastname} />
-            </Grid.Row>
-            <Divider hidden />
-            <Grid.Row>
-              <Input placeholder={'Pseudo'} type='text' onChange={changePseudo} value={pseudo} />
-            </Grid.Row>
-            <Divider hidden />
-            <Grid.Row>
-              <Input placeholder={'Code'} type='text' onChange={changeCode} value={code} />
-            </Grid.Row>
-            <Divider hidden />
-          </Segment>
-        </Grid.Column>
-        <Grid.Column></Grid.Column>
-      </Grid.Row>
-      <Button type='button' onClick={postUser}>Se connecter</Button>
-    </Grid>
-  </Center>;
+  return (
+    <Center>
+      <Grid textAlign="center">
+        <Image src="./headerColored.png" />
+        <Grid.Row>
+          <Grid.Column />
+          <Grid.Column mobile={12} computer={4}>
+            <Segment>
+              <Divider hidden />
+              <Grid.Row>
+                <Input placeholder={'Prénom'} type="text" onChange={changeFirstname} value={firstname} />
+              </Grid.Row>
+              <Divider hidden />
+              <Grid.Row>
+                <Input placeholder={'Nom'} type="text" onChange={changeLastname} value={lastname} />
+              </Grid.Row>
+              <Divider hidden />
+              <Grid.Row>
+                <Input placeholder={'Pseudo'} type="text" onChange={changePseudo} value={pseudo} />
+              </Grid.Row>
+              <Divider hidden />
+              <Grid.Row>
+                <Input placeholder={'Code'} type="text" onChange={changeCode} value={code} />
+              </Grid.Row>
+              <Divider hidden />
+            </Segment>
+          </Grid.Column>
+          <Grid.Column />
+        </Grid.Row>
+        <Button type="button" onClick={postUser}>
+          Se connecter
+        </Button>
+      </Grid>
+    </Center>
+  );
 };
 Login.propTypes = {
   history: PropTypes.shape({

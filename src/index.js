@@ -6,16 +6,21 @@ import { AppContainer } from 'react-hot-loader';
 import App from './containers/App';
 import { AppProvider } from './contexts/AppContext';
 import { theme } from './styled/theme';
+import { PhotoProvider } from './contexts/PhotoContext';
+import { UploadPhotoProvider } from './contexts/UploadPhotoContext';
 
 const render = (Component) => {
   ReactDOM.render(
-
     <AppContainer>
       <React.Fragment>
         <ThemeProvider theme={theme}>
           <BrowserRouter>
             <AppProvider>
-              <App />
+              <PhotoProvider>
+                <UploadPhotoProvider>
+                  <App />
+                </UploadPhotoProvider>
+              </PhotoProvider>
             </AppProvider>
           </BrowserRouter>
         </ThemeProvider>
